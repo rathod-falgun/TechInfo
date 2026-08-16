@@ -1,0 +1,25 @@
+.navbar-background {
+	background-color: #1961d4 !important;
+	color: white !important;
+}
+.banner-background {
+	clip-path: polygon(0 0, 100% 0, 100% 70%, 82% 96%, 30% 98%, 0 100%);
+	background: #4f8ecc;
+}
+
+.navbar-background .navbar-brand, .navbar-background .nav-link,
+	.navbar-background .dropdown-toggle {
+	color: black !important;
+}
+
+.list-group-item.active a {
+    color: white !important;
+}
+.custom-card-img {
+    width: 100px;
+    height: 100px;
+    object-fit:cover;
+    display: block;
+    margin: 10px auto;
+    border-radius: 5px;
+}

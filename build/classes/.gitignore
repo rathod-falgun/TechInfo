@@ -1,0 +1,16 @@
+/com/
+
+# Eclipse
+.settings/
+.classpath
+.project
+
+# Build files
+build/
+target/
+
+# Server generated files
+Servers/
+
+# Local environment
+.env

@@ -12,10 +12,18 @@ public class ConnectionProvider {
             if (con == null) {
                 // Driver Class Load
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                String username = System.getenv("DB_USERNAME");
-                String password = System.getenv("DB_PASSWORD");
+                
+                String host = System.getenv("AVIAN_DB_HOST");
+                String port = System.getenv("AVIAN_DB_PORT");
+                String database = System.getenv("AVIAN_DB_NAME");
+                String username = System.getenv("AVIAN_DB_USER");
+                String password = System.getenv("AVIAN_DB_PASSWORD");
+                
+                String url = "jdbc:mysql://" + host + ":" + port + "/" + database
+                        + "?sslMode=REQUIRED";
+                
                 // create a connection
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/techinfo",username , password);
+                con = DriverManager.getConnection(url,username , password);
             }
 
         } catch (Exception e) {

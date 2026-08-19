@@ -22,25 +22,32 @@ public class Helper {
 
         return f;
     }
-    
-    public static boolean saveFile(InputStream is , String path) {
+    public static boolean saveFile(InputStream is, String path) {
+
         boolean f = false;
-        
+
         try {
-            byte[] b = new byte[is.available()];
-            is.read(b);
-            
+
             FileOutputStream fos = new FileOutputStream(path);
-            fos.write(b);
-            
+
+            byte[] buffer = new byte[1024];
+
+            int bytesRead;
+
+            while ((bytesRead = is.read(buffer)) != -1) {
+                fos.write(buffer, 0, bytesRead);
+            }
+
             fos.flush();
             fos.close();
             is.close();
-            
+
             f = true;
-        }catch (Exception e) {
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
         return f;
     }
 }

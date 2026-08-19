@@ -87,21 +87,32 @@ public class editServlet extends HttpServlet {
        
        
        if(uploaded_image != null && !uploaded_image.isEmpty()) {
-           String uploadDir = "E:/EclipseWorkSpace/TechInfo/src/main/webapp/profiles";
-           String newImagePath = uploadDir + File.separator + uploaded_image;
-           String oldImagePath = uploadDir + File.separator + old_image;
-           
-           if(!old_image.equals("default.png")) {
-               Helper.deleteFile(oldImagePath);
-           }
-       
-           System.out.println(newImagePath);
-           
-           boolean success = Helper.saveFile(part.getInputStream(), newImagePath);
-           if(success) {
-               u.setProfile(uploaded_image);
-           }
-           
+    	   
+    	   String uploadDir = getServletContext().getRealPath("/profiles");
+    	   
+    	    File uploadFolder = new File(uploadDir);
+    	    
+    	    if (!uploadFolder.exists()) {
+    	        uploadFolder.mkdirs();
+    	    }
+    	    
+    	    String newImagePath = uploadDir + File.separator + uploaded_image;
+    	    String oldImagePath = uploadDir + File.separator + old_image;
+    	    
+    	    if (old_image != null && !old_image.equals("default.png")) {
+    	        Helper.deleteFile(oldImagePath);
+    	    }
+    	    
+    	    System.out.println("Image upload path: " + newImagePath);
+
+    	    boolean success = Helper.saveFile(
+    	            part.getInputStream(),
+    	            newImagePath
+    	        );
+
+    	        if (success) {
+    	            u.setProfile(uploaded_image);
+    	        }
        }
        
        Connection con = ConnectionProvider.getCon();

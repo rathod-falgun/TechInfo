@@ -271,7 +271,7 @@ if (user == null) {
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
 								data-bs-dismiss="modal">Close</button>
-							<button type="button" id="savePost" class="btn btn-primary">Save
+							<button type="submit" id="savePost" class="btn btn-primary">Save
 								changes</button>
 						</div>
 					</form>

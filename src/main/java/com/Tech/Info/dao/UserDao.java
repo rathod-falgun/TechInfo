@@ -104,33 +104,56 @@ public class UserDao {
         User u = null;
 
         try {
-            String q = "select * from user where email = ? and password = ?";
+
+            System.out.println("========== LOGIN DEBUG ==========");
+            System.out.println("Email received: " + email);
+            System.out.println("Password received: " + (password != null));
+            System.out.println("Connection: " + con);
+
+            String q = "SELECT * FROM `user` WHERE email = ? AND password = ?";
+
             PreparedStatement st = con.prepareStatement(q);
+
             st.setString(1, email);
             st.setString(2, password);
 
             ResultSet set = st.executeQuery();
 
+            System.out.println("Query executed successfully.");
+
             if (set.next()) {
+
+                System.out.println("USER FOUND IN DATABASE!");
+
                 u = new User();
+
                 u.setName(set.getString("name"));
                 u.setEmail(set.getString("email"));
                 u.setPassword(set.getString("password"));
                 u.setGender(set.getString("gender"));
-                u.setId(set.getInt("id"));  
+                u.setId(set.getInt("id"));
 
                 Timestamp timestamp = set.getTimestamp("rdate");
-                u.setTime(timestamp.toLocalDateTime().toLocalDate());
-                
+
+                if (timestamp != null) {
+                    u.setTime(timestamp.toLocalDateTime().toLocalDate());
+                }
+
                 u.setProfile(set.getString("profile"));
 
                 return u;
+
+            } else {
+
+                System.out.println("USER NOT FOUND.");
             }
+
         } catch (Exception e) {
+
+            System.out.println("========== LOGIN DATABASE ERROR ==========");
             e.printStackTrace();
         }
 
         return null;
-
     }
 }
